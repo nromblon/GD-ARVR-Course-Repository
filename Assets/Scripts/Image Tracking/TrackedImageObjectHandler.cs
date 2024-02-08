@@ -16,16 +16,19 @@ public class TrackedImageObjectHandler : MonoBehaviour
         {
             // Handle added event
             Debug.Log("Tracked new Image: " + image.referenceImage.name + " | Tracking State: " + image.trackingState);
-
+            // TODO: Spawn cube here
             GameObject virtualObj = GameObject.Instantiate(virtualObjPrefab);
-            virtualObj.transform.parent = image.gameObject.transform;
-            virtualObj.transform.localPosition = new Vector3(0, yOffset, 0);
+            virtualObj.transform.parent = image.transform;
+            virtualObj.transform.localPosition = new Vector3(0f, yOffset, 0f);
+            if (ARNavigationManager.Instance != null)
+                ARNavigationManager.Instance.SetBeaconObject(image.gameObject);
         }
 
         foreach (var image in eventArgs.updated)
         {
             // Handle updated event
             Debug.Log("Updated Image: " + image.referenceImage.name + " | Tracking State: " + image.trackingState);
+            // not here
         }
 
         foreach (var image in eventArgs.removed)
